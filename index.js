@@ -44,9 +44,31 @@ async function run() {
         app.post("/dashboard/seller/addProduct", async (req, res) => {
             const product = req.body;
             console.log(product);
-            // const result = await productsCollection.insertOne(product);
-            // res.send(result)
+            const result = await productsCollection.insertOne(product);
+            res.send(result)
         })
+
+        app.get('/allProducts', async (req, res) => {
+            const query = {}
+            const result = await productsCollection.find(query).toArray()
+            res.send(result)
+        })
+        // get product by category ID 
+
+        app.get('/categoriesProduct', async (req, res) => {
+            const categoryId = req.query.categoryId
+            const query = { categoryId: categoryId }
+            const categoriesProduct = await productsCollection.find(query).toArray();
+            res.send(categoriesProduct)
+        })
+
+        app.get('/advertisedHomeProduct', async (req, res) => {
+            const query = { isAdvertised: "true" }
+            const categoriesProduct = await productsCollection.find(query).limit(4).toArray();
+            res.send(categoriesProduct)
+        })
+
+
 
         app.post("/dashboard/admin/allUser", async (req, res) => {
             const userDetails = req.body;
@@ -57,16 +79,17 @@ async function run() {
         //admin er jonno all user get korte hobe 2 vabe...
         //1. all buyers
         app.get('/dashboard/admin/buyer', async (req, res) => {
-            const buyer = req.query.buyer;
-            const query = { role: buyer };
+            // change it when client side code added!   
+            // const buyer = req.query.buyer;
+            const query = { role: "buyer" };
             const allUser = await allUserCollection.find(query).toArray();
             res.send(allUser)
         })
-
         //2. all sellers
         app.get('/dashboard/admin/seller', async (req, res) => {
-            const seller = req.query.seller;
-            const query = { role: seller };
+            // change it when client side code added!
+            // const seller = req.query.seller;
+            const query = { role: "seller" };
             const allSeller = await allUserCollection.find(query).toArray();
             res.send(allSeller);
         })
