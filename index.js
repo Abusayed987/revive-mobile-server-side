@@ -53,8 +53,8 @@ async function run() {
             const result = await productsCollection.find(query).toArray()
             res.send(result)
         })
-        // get product by category ID 
 
+        // get product by category ID 
         app.get('/categoriesProduct', async (req, res) => {
             const categoryId = req.query.categoryId
             const query = { categoryId: categoryId }
@@ -62,11 +62,32 @@ async function run() {
             res.send(categoriesProduct)
         })
 
+
+        // get specifics products for Seller
+        app.get('/sellerProducts', async (req, res) => {
+            const sellerEmail = req.query.sellerEmail;
+            const query = { sellerEmail: sellerEmail }
+            const sellerProducts = await productsCollection.find(query).toArray()
+            res.send(sellerProducts)
+        })
+
+
+        //get product for home page 
         app.get('/advertisedHomeProduct', async (req, res) => {
             const query = { isAdvertised: "true" }
             const categoriesProduct = await productsCollection.find(query).limit(4).toArray();
             res.send(categoriesProduct)
         })
+        //get product for all ads page
+        app.get('/allAdvertiseItems', async (req, res) => {
+            const query = { isAdvertised: "true" }
+            const categoriesProduct = await productsCollection.find(query).toArray();
+            res.send(categoriesProduct)
+        })
+
+
+        // abu@sayed.com
+        ///categoriesProduct
 
 
 
