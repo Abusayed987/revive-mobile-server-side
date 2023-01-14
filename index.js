@@ -59,7 +59,7 @@ async function run() {
         })
 
 
-        // get product by category ID 
+        // get products by category ID 
         app.get('/categoriesProduct', async (req, res) => {
             const categoryId = req.query.categoryId
             const query = { categoryId: categoryId }
@@ -130,6 +130,13 @@ async function run() {
             const wishlistProduct = req.body;
             const wishlistItems = await wishlistCollection.insertOne(wishlistProduct);
             res.send(wishlistItems)
+        })
+
+        app.get('/dashboard/wishlistItems', async (req, res) => {
+            const userEmail = req.query.userEmail;
+            const query = { userEmail: userEmail }
+            const result = await wishlistCollection.find(query).toArray()
+            res.send(result);
         })
 
 
