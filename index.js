@@ -132,7 +132,7 @@ async function run() {
             const wishlistItems = await wishlistCollection.insertOne(wishlistProduct);
             res.send(wishlistItems)
         })
-
+        //get wishlist item
         app.get('/dashboard/wishlistItems', async (req, res) => {
             const userEmail = req.query.userEmail;
             const query = { userEmail: userEmail }
@@ -144,6 +144,14 @@ async function run() {
         app.post("/booking", async (req, res) => {
             const bookingItem = req.body;
             const result = await bookingCollection.insertOne(bookingItem);
+            res.send(result);
+        })
+
+        //get booking item
+        app.get('/dashboard/bookingItems', async (req, res) => {
+            const userEmail = req.query.userEmail;
+            const query = { userEmail: userEmail }
+            const result = await bookingCollection.find(query).toArray()
             res.send(result);
         })
 
