@@ -28,6 +28,7 @@ async function run() {
         const categoryCollection = client.db("ReviveMobile").collection("categoriesItems");
         const productsCollection = client.db("ReviveMobile").collection("products")
         const allUserCollection = client.db("ReviveMobile").collection("allUser")
+        const wishlistCollection = client.db("ReviveMobile").collection("wishlistItems");
 
         app.get('/categories', async (req, res) => {
             const query = {}
@@ -46,7 +47,6 @@ async function run() {
 
         app.post("/dashboard/seller/addProduct", async (req, res) => {
             const product = req.body;
-            console.log(product);
             const result = await productsCollection.insertOne(product);
             res.send(result)
         })
@@ -123,6 +123,13 @@ async function run() {
             const query = { role: "seller" };
             const allSeller = await allUserCollection.find(query).toArray();
             res.send(allSeller);
+        })
+
+        //post  wishlist in wishlistItems
+        app.post('/dashboard/wishlist', async (req, res) => {
+            const wishlistProduct = req.body;
+            const wishlistItems = await wishlistCollection.insertOne(wishlistProduct);
+            res.send(wishlistItems)
         })
 
 
