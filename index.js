@@ -150,12 +150,10 @@ async function run() {
         //get booking item
         app.get('/dashboard/bookingItems', async (req, res) => {
             const userEmail = req.query.userEmail;
-            const query = { userEmail: userEmail }
+            const query = { buyerEmail: userEmail }
             const result = await bookingCollection.find(query).toArray()
             res.send(result);
         })
-
-
 
     }
     finally {
