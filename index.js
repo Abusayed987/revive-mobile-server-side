@@ -34,12 +34,15 @@ async function run() {
             const result = await categoryCollection.find(query).toArray();
             res.send(result)
         })
+
+
         app.get('/categories/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) }
             const result = await categoryCollection.findOne(query);
             res.send(result)
         })
+
 
         app.post("/dashboard/seller/addProduct", async (req, res) => {
             const product = req.body;
@@ -48,11 +51,13 @@ async function run() {
             res.send(result)
         })
 
+
         app.get('/allProducts', async (req, res) => {
             const query = {}
             const result = await productsCollection.find(query).toArray()
             res.send(result)
         })
+
 
         // get product by category ID 
         app.get('/categoriesProduct', async (req, res) => {
@@ -78,12 +83,15 @@ async function run() {
             const categoriesProduct = await productsCollection.find(query).limit(4).toArray();
             res.send(categoriesProduct)
         })
+
+
         //get product for all ads page
         app.get('/allAdvertiseItems', async (req, res) => {
             const query = { isAdvertised: "true" }
             const categoriesProduct = await productsCollection.find(query).toArray();
             res.send(categoriesProduct)
         })
+
 
         //post all user
         app.post("/dashboard/admin/allUser", async (req, res) => {
@@ -92,25 +100,29 @@ async function run() {
             res.send(result)
         })
 
-        //get all buyers
-        app.get("/dashboard/admin/allBuyers")
 
-        //admin er jonno all user get korte hobe 2 vabe...
-        //1. all buyers
+        //get all users 
+        app.get('/allUsers', async (req, res) => {
+            const query = {}
+            const allUsers = await allUserCollection.find(query).toArray();
+            res.send(allUsers)
+        })
+
+
+        //1. get all buyers
         app.get('/dashboard/admin/allBuyers', async (req, res) => {
             const query = { role: "buyer" };
             const allUser = await allUserCollection.find(query).toArray();
             res.send(allUser)
         })
 
-        //2. all sellers
+
+        //2. get all sellers
         app.get('/dashboard/admin/allSellers', async (req, res) => {
             const query = { role: "seller" };
             const allSeller = await allUserCollection.find(query).toArray();
             res.send(allSeller);
         })
-
-
 
 
 
