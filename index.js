@@ -101,11 +101,12 @@ async function run() {
         })
 
 
-        //get all users 
-        app.get('/allUsers', async (req, res) => {
-            const query = {}
-            const allUsers = await allUserCollection.find(query).toArray();
-            res.send(allUsers)
+        //get user by email
+        app.get('/allUser/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email: email }
+            const user = await allUserCollection.findOne(query);
+            res.send(user)
         })
 
 
