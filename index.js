@@ -85,31 +85,26 @@ async function run() {
             res.send(categoriesProduct)
         })
 
-
-        // abu@sayed.com
-        ///categoriesProduct
-
-
-
+        //post all user
         app.post("/dashboard/admin/allUser", async (req, res) => {
             const userDetails = req.body;
             const result = await allUserCollection.insertOne(userDetails);
             res.send(result)
         })
 
+        //get all buyers
+        app.get("/dashboard/admin/allBuyers")
+
         //admin er jonno all user get korte hobe 2 vabe...
         //1. all buyers
-        app.get('/dashboard/admin/buyer', async (req, res) => {
-            // change it when client side code added!   
-            // const buyer = req.query.buyer;
+        app.get('/dashboard/admin/allBuyers', async (req, res) => {
             const query = { role: "buyer" };
             const allUser = await allUserCollection.find(query).toArray();
             res.send(allUser)
         })
+
         //2. all sellers
-        app.get('/dashboard/admin/seller', async (req, res) => {
-            // change it when client side code added!
-            // const seller = req.query.seller;
+        app.get('/dashboard/admin/allSellers', async (req, res) => {
             const query = { role: "seller" };
             const allSeller = await allUserCollection.find(query).toArray();
             res.send(allSeller);
