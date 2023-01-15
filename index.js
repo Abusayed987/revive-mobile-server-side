@@ -163,6 +163,15 @@ async function run() {
             res.send(result)
         })
 
+        app.get('/dashboard/admin/singleSeller/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email: email }
+            const result = await allUserCollection.findOne(query)
+            res.send(result)
+        })
+
+
+
         // delete a buyer 
         app.delete('/buyer/:id', async (req, res) => {
             const id = req.params.id;
@@ -184,6 +193,21 @@ async function run() {
             const id = req.params.id;
             const query = { _id: ObjectId(id) }
             const result = await productsCollection.deleteOne(query);
+            res.send(result)
+        })
+
+
+        //addVerifiedSeller by id
+        app.put("/addVerifiedSeller/:id", async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const updatedDoc = {
+                $set: {
+                    isVerified: "true"
+                }
+            };
+            const options = { upsert: true };
+            const result = await allUserCollection.updateOne(filter, updatedDoc, options)
             res.send(result)
         })
 
