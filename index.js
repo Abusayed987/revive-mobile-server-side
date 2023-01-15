@@ -159,7 +159,31 @@ async function run() {
         app.delete('/seller/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) }
-            const result = await doctorsCollection.deleteOne(query);
+            const result = await allUserCollection.deleteOne(query);
+            res.send(result)
+        })
+
+        // delete a buyer 
+        app.delete('/buyer/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const result = await allUserCollection.deleteOne(query);
+            res.send(result)
+        })
+
+        // delete WishlistItem 
+        app.delete('/wishlistItem/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const result = await wishlistCollection.deleteOne(query);
+            res.send(result)
+        })
+
+        // delete myProduct 
+        app.delete('/myProduct/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const result = await productsCollection.deleteOne(query);
             res.send(result)
         })
 
