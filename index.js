@@ -210,6 +210,14 @@ async function run() {
             const result = await allUserCollection.updateOne(filter, updatedDoc, options)
             res.send(result)
         })
+        app.get("/booking/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await bookingCollection.findOne(query);
+            res.send(result)
+        })
+
+
 
     }
     finally {
